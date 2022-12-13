@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinzheng.dao.BookMapper">
+
+<!--    显示所有目录-->
+    <select id="findAll" resultType="com.jinzheng.pojo.Book">
+        select * from tb_book
+    </select>
+
+<!--    根据id查询图书信息 -->
+    <select id="findBookById" parameterType="Integer"
+            resultType="com.jinzheng.pojo.Book">
+        select *
+        from tb_book
+        where id=#{id}
+    </select>
+
+<!--    添加数据-->
+    <insert id="addBook" parameterType="com.jinzheng.pojo.Book">
+        insert into tb_book values (#{id},#{name},#{press},#{author},#{bookPrice})
+    </insert>
+
+<!--        删除数据-->
+    <delete id="deleteById" parameterType="Integer">
+        delete from tb_book where id = #{id}
+    </delete>
+
+<!--    修改数据-->
+    <update id="updateBook" parameterType="com.jinzheng.pojo.Book">
+        update tb_book
+        <set>
+            <if test="name != null and name != '' ">
+                name = #{name},
+            </if>
+            <if test="press != null and press != '' ">
+                press = #{press},
+            </if>
+            <if test="author != null and author != '' ">
+                author = #{author},
+            </if>
+            <if test="bookPrice != null and bookPrice != '' ">
+                bookPrice = #{bookPrice},
+            </if>
+
+        </set>
+        where id = #{id}
+    </update>
+
+<!--        根据图书信息去模糊查询图书信息(动态SQL)-->
+    <select id="queryList" parameterType="com.jinzheng.pojo.Book" resultType="com.jinzheng.pojo.Book">
+        select * from tb_book
+        <where>
+            <if test="id != null and id !='' ">
+                or id = #{id}
+            </if>
+            <if test="name != null and name !='' ">
+                or name like concat('%',#{name},'%')
+            </if>
+            <if test="press != null and press !='' ">
+                or press like concat('%',#{press},'%')
+            </if>
+            <if test="author != null and author !='' ">
+                or author like concat('%',#{author},'%')
+            </if>
+            <if test="bookPrice != null and bookPrice !='' ">
+                or bookPrice = #{bookPrice}
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <context:component-scan base-package="com.jinzheng.controller"/>
+
+    <context:annotation-config/>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--注解驱动(后缀为mvc的)-->
+    <mvc:annotation-driven/>
+
+    <!--取消对配置文件的拦截-->
+    <mvc:default-servlet-handler/>
+<!--    <mvc:annotation-driven/>-->
+
+<!--    &lt;!&ndash; 配置拦截器 &ndash;&gt;-->
+<!--    <mvc:interceptors>-->
+<!--        &lt;!&ndash;使用bean直接定义在<mvc:interceptors>下面的拦截器将拦截所有请求&ndash;&gt;-->
+<!--        <bean class="com.jinzheng.interceptor.UserInterceptor"/>-->
+<!--    </mvc:interceptors>-->
+
+
+</beans>
